@@ -10,6 +10,10 @@
 
 <script>
 import TweetComp from './TweetComp'
+import Vue from 'vue'
+import Resource from 'vue-resource'
+
+Vue.use(Resource)
 export default {
   name: 'timeline',
   data () {
@@ -30,6 +34,22 @@ export default {
                      ]
                    }
           },
+    created () {
+     this.fetchTweets()
+    },
+    methods: {
+      fetchTweets: function () {
+        // GET /someUrl
+          this.$http.get('http://localhost:8080/list').then(response => {
+
+            // get body data
+            this.tweets = response.body;
+
+          }, response => {
+            // error callback
+          });
+      }
+    },
     components: {TweetComp}
 }
 </script>
