@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <p>
         <router-link to="/timeline">Go to Timeline</router-link>
     </p>

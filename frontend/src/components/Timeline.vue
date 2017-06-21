@@ -1,12 +1,15 @@
 <template>
   <div class="timeline">
   <ul>
-    <li v-for="tweet in tweets">{{ tweet.auteur }} : {{ tweet.contenu }}</li>
+    <li v-for="tweet in tweets">
+      <tweet-comp :tweetProp="tweet"></tweet-comp>
+    </li>
   </ul>
   </div>
 </template>
 
 <script>
+import TweetComp from './TweetComp'
 export default {
   name: 'timeline',
   data () {
@@ -26,7 +29,8 @@ export default {
                         }
                      ]
                    }
-          }
+          },
+    components: {TweetComp}
 }
 </script>
 
