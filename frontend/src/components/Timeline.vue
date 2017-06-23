@@ -1,14 +1,41 @@
 <template>
   <div>
-  <feed></feed>
+  <feed :tweets="tweets" :loading="loading"></feed>
   </div>
 </template>
 
 <script>
 import Feed from './Feed'
+import Vue from 'vue'
+import Resource from 'vue-resource'
 
+Vue.use(Resource)
 export default {
   name: 'timeline',
+  data () {
+              return {
+                       tweets: [],
+                       loading: true
+                     }
+            },
+    created () {
+      setTimeout(function(){
+        this.fetchTweets()
+        }.bind(this), 2000);
+    },
+    methods: {
+      fetchTweets: function () {
+        // GET /someUrl
+          this.$http.get('http://localhost:8080/list').then(response => {
+
+            // get body data
+                            this.tweets = response.body;
+                            this.loading = false;
+          }, response => {
+            // error callback
+          });
+      }
+    },
   components: {Feed}
 }
 </script>
