@@ -14,7 +14,7 @@
           <icon name="reply"/>
         </li>
         <li class="button">
-          <icon name="retweet"/>
+          <icon name="retweet"/>{{tweetProp.retweeters.length}}
         </li>
         <li class="button">
           <icon name="heart"/>
