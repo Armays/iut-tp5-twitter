@@ -13,11 +13,9 @@
         <li class="button">
           <icon name="reply"/>
         </li>
-        <a @click="retweet()">
+        <a v-if="canRetweet()" @click="retweet()">
         <li class="button">
-
             <icon name="retweet"/>{{tweetProp.retweeters.length}}
-
         </li>
         </a>
         <li class="button">
@@ -59,6 +57,13 @@ export default {
                 }, response => {
                   // error callback
                 });
+      },
+      canRetweet: function () {
+        console.log(this.tweetProp.retweeters, this.connectedUser);
+        var exist = this.tweetProp.retweeters.find(e => e.handle === this.connectedUser);
+        var auteur = this.tweetProp.auteur.handle === this.connectedUser;
+        if (exist || auteur) return false;
+        else return true;
       }
     }
 }

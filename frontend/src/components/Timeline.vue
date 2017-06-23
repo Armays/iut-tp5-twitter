@@ -39,9 +39,7 @@ export default {
           });
       },
       retweet: function (id) {
-         console.log('id', id);
          var tweet = this.tweets.find(e => e.id === id);
-         console.log(tweet.retweeters);
          var handle = this.tweets.find(e => e.handle === handle);
          tweet.retweeters.push({handle:handle});
       },
