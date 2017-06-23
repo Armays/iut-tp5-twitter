@@ -3,7 +3,7 @@
   <div>
     <div>
       <strong>{{ tweetProp.auteur.nom }} - {{tweetProp.auteur.prenom}} : </strong>
-      <span class="handle">{{tweetProp.auteur.handle}}</span>
+      <span class="handle">{{tweetProp.auteur.handle}} - {{momentf(tweetProp.date).fromNow()}}</span>
     </div>
     <div>
       {{tweetProp.contenu}}
@@ -30,11 +30,17 @@
 <script>
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
+import moment from 'moment'
 
 export default {
   name: 'TweetComp',
   props: ['tweetProp'],
-  components: { Icon }
+  components: { Icon },
+  methods: {
+      momentf: function (date) {
+        return moment(date)
+      }
+    }
 }
 </script>
 
