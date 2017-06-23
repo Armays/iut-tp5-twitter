@@ -1,6 +1,6 @@
 
 <template>
-  <div>{{ tweetProp.auteur }} : {{ tweetProp.contenu }}</div>
+  <div>{{ tweetProp.auteur.nom }} - {{tweetProp.auteur.prenom}} : {{tweetProp.contenu}}</div>
 </template>
 
 <script>

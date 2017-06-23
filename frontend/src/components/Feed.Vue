@@ -19,43 +19,29 @@ export default {
   name: 'timeline',
   data () {
             return {
-                     tweets: [
-                        {
-                          auteur: 'Dianounette',
-                          contenu: 'La vie c\'est trop cool !'
-                        },
-                        {
-                          auteur: 'Yoann',
-                          contenu: 'La vie c\'est trop de la merde !'
-                        },
-                        {
-                          auteur: 'Fanny',
-                          contenu: 'La bière c\'est trop cool mais seulement grâce à la bière !'
-                        }
-                     ],
+                     tweets: [],
                      loading: true
                    }
           },
-    created () {
+  created () {
     setTimeout(function(){
-                                this.fetchTweets()
-                            }.bind(this), 2000);
+      this.fetchTweets()
+      }.bind(this), 2000);
+  },
+  methods: {
+    fetchTweets: function () {
+      // GET /someUrl
+        this.$http.get('http://localhost:8080/list').then(response => {
 
-    },
-    methods: {
-      fetchTweets: function () {
-        // GET /someUrl
-          this.$http.get('http://localhost:8080/list').then(response => {
-
-            // get body data
-                            this.tweets = response.body;
-                            this.loading = false;
-          }, response => {
-            // error callback
-          });
-      }
-    },
-    components: {TweetComp}
+          // get body data
+                          this.tweets = response.body;
+                          this.loading = false;
+        }, response => {
+          // error callback
+        });
+    }
+  },
+  components: {TweetComp}
 }
 </script>
 
