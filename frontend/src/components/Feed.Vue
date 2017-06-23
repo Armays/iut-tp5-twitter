@@ -1,7 +1,7 @@
 <template>
-  <div class="timeline">
-  <span v-if="loading">Chargement des tweets en cours...</span>
-  <ul v-else">
+  <div>
+  <span v-if="loading === true">Chargement des tweets en cours...</span>
+  <ul v-else>
     <li v-for="tweet in tweets">
       <tweet-comp :tweetProp="tweet"></tweet-comp>
     </li>
@@ -32,29 +32,30 @@ export default {
                           auteur: 'Fanny',
                           contenu: 'La bière c\'est trop cool mais seulement grâce à la bière !'
                         }
-                     ]
+                     ],
+                     loading: true
                    }
           },
     created () {
-     this.fetchTweets()
+    setTimeout(function(){
+                                this.fetchTweets()
+                            }.bind(this), 2000);
+
     },
     methods: {
       fetchTweets: function () {
         // GET /someUrl
-          this.loading = true;
           this.$http.get('http://localhost:8080/list').then(response => {
 
             // get body data
-            this.tweets = response.body;
-            this.loading = false;
-
+                            this.tweets = response.body;
+                            this.loading = false;
           }, response => {
             // error callback
           });
       }
     },
-    components: {TweetComp},
-    props: ['loading']
+    components: {TweetComp}
 }
 </script>
 
