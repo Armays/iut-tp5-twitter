@@ -42,7 +42,7 @@ Vue.use(Resource)
 
 export default {
   name: 'TweetComp',
-  props: ['tweetProp'],
+  props: ['tweetProp', 'connectedUser'],
   components: { Icon },
   methods: {
       momentf: function (date) {
@@ -52,7 +52,7 @@ export default {
                 this.$http.get('http://localhost:8080/retweet', {
                   responseType: 'text',
                   params:
-                    {utilisateur: 'johndoe', tweet:this.tweetProp.id
+                    {utilisateur: this.connectedUser, tweet:this.tweetProp.id
                     }
                 }).then(response => {
                   this.$emit('retweeted', this.tweetProp.id)

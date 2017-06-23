@@ -3,7 +3,7 @@
   <span v-if="loading === true">Chargement des tweets en cours...</span>
   <ul v-else>
     <li v-for="tweet in tweets" class="tweet">
-      <tweet-comp :tweetProp="tweet" @retweeted="retweet"></tweet-comp>
+      <tweet-comp :tweetProp="tweet" :connectedUser="connectedUser" @retweeted="retweet"></tweet-comp>
     </li>
   </ul>
   </div>
@@ -15,7 +15,7 @@ import TweetComp from './TweetComp'
 export default {
   name: 'timeline',
   components: {TweetComp},
-  props:['tweets', 'loading'],
+  props:['tweets', 'loading', 'connectedUser'],
   methods: {
      retweet: function (id) {
         this.$emit('retweeted', id)

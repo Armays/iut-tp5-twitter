@@ -1,5 +1,6 @@
 <template>
   <div>
+    Utilisateur connecté :
     <select @change="onChange($event.target.value)">
      <option disabled value="">Choisissez un utilisateur ...</option>
      <option v-for="utilisateur in utilisateurs" :value="utilisateur.handle">
@@ -19,7 +20,7 @@ export default {
   name: 'timeline',
   data () {
     return {
-      utilisateurs: []
+      utilisateurs: ['']
     }
   },
   created () {
@@ -33,6 +34,9 @@ export default {
         }, response => {
           // error callback
         });
+    },
+    onChange: function(handle) {
+      this.$emit('changed', handle)
     }
   }
 }
