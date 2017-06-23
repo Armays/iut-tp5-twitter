@@ -1,11 +1,13 @@
 <template>
   <div>
-  <feed :tweets="tweets" :loading="loading" @retweeted="retweet"></feed>
+    <utilisateurs></utilisateurs>
+    <feed :tweets="tweets" :loading="loading" @retweeted="retweet"></feed>
   </div>
 </template>
 
 <script>
 import Feed from './Feed'
+import Utilisateurs from './Utilisateurs'
 import Vue from 'vue'
 import Resource from 'vue-resource'
 
@@ -42,7 +44,7 @@ export default {
          tweet.retweeters.push({handle:'johndoe'});
       }
     },
-  components: {Feed}
+  components: {Feed, Utilisateurs}
 }
 </script>
 
