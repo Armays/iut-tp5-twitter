@@ -6,6 +6,7 @@
       <tweet-comp :tweetProp="tweet"></tweet-comp>
     </li>
   </ul>
+  {{ tweets }}
   </div>
 </template>
 

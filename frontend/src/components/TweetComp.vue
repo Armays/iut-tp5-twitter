@@ -13,9 +13,13 @@
         <li class="button">
           <icon name="reply"/>
         </li>
+        <a @click="retweet()">
         <li class="button">
-          <icon name="retweet"/>{{tweetProp.retweeters.length}}
+
+            <icon name="retweet"/>{{tweetProp.retweeters.length}}
+
         </li>
+        </a>
         <li class="button">
           <icon name="heart"/>
         </li>
@@ -31,6 +35,10 @@
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 import moment from 'moment'
+import Vue from 'vue'
+import Resource from 'vue-resource'
+
+Vue.use(Resource)
 
 export default {
   name: 'TweetComp',
@@ -39,6 +47,18 @@ export default {
   methods: {
       momentf: function (date) {
         return moment(date)
+      },
+      retweet: function () {
+                this.$http.get('http://localhost:8080/retweet', {
+                  responseType: 'text',
+                  params:
+                    {utilisateur: 'johndoe', tweet:this.tweetProp.id
+                    }
+                }).then(response => {
+                  console.log(response)
+                }, response => {
+                  // error callback
+                });
       }
     }
 }
