@@ -55,7 +55,7 @@ export default {
                     {utilisateur: 'johndoe', tweet:this.tweetProp.id
                     }
                 }).then(response => {
-                  console.log(response)
+                  this.$emit('retweeted', this.tweetProp.id)
                 }, response => {
                   // error callback
                 });

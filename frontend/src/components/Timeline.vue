@@ -1,6 +1,6 @@
 <template>
   <div>
-  <feed :tweets="tweets" :loading="loading"></feed>
+  <feed :tweets="tweets" :loading="loading" @retweeted="retweet"></feed>
   </div>
 </template>
 
@@ -34,6 +34,12 @@ export default {
           }, response => {
             // error callback
           });
+      },
+      retweet: function (id) {
+         console.log('id', id);
+         var tweet = this.tweets.find(e => e.id === id);
+         console.log(tweet.retweeters);
+         tweet.retweeters.push({handle:'johndoe'});
       }
     },
   components: {Feed}
