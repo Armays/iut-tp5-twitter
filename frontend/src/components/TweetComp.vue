@@ -1,30 +1,35 @@
 
 <template>
   <div>
-    <div>
-      <strong>{{ tweetProp.auteur.nom }} - {{tweetProp.auteur.prenom}} : </strong>
-      <span class="handle">{{tweetProp.auteur.handle}} - {{momentf(tweetProp.date).fromNow()}}</span>
+    <div class="column">
+      <img :src="avatar"/>
     </div>
-    <div>
-      {{tweetProp.contenu}}
-    </div>
-    <div>
-      <ul>
-        <li class="button">
-          <icon name="reply"/>
-        </li>
-        <a v-if="canRetweet()" @click="retweet()">
-        <li class="button">
-            <icon name="retweet"/>{{tweetProp.retweeters.length}}
-        </li>
-        </a>
-        <li class="button">
-          <icon name="heart"/>
-        </li>
-        <li class="button">
-          <icon name="envelope"/>
-        </li>
-      </ul>
+    <div class="column">
+      <div>
+        <strong>{{ tweetProp.auteur.nom }} - {{tweetProp.auteur.prenom}} : </strong>
+        <span class="handle">{{tweetProp.auteur.handle}} - {{momentf(tweetProp.date).fromNow()}}</span>
+      </div>
+      <div>
+        {{tweetProp.contenu}}
+      </div>
+      <div>
+        <ul>
+          <li class="button">
+            <icon name="reply"/>
+          </li>
+          <a v-if="canRetweet()" @click="retweet()">
+          <li class="button">
+              <icon name="retweet"/>{{tweetProp.retweeters.length}}
+          </li>
+          </a>
+          <li class="button">
+            <icon name="heart"/>
+          </li>
+          <li class="button">
+            <icon name="envelope"/>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -42,6 +47,11 @@ export default {
   name: 'TweetComp',
   props: ['tweetProp', 'connectedUser'],
   components: { Icon },
+  computed: {
+     avatar: function () {
+       return 'https://robohash.org/' + this.tweetProp.auteur.handle + '?size=100x100';
+     }
+  },
   methods: {
       momentf: function (date) {
         return moment(date)
@@ -84,4 +94,8 @@ a {
 span.handle {
  color: gray;
 }
+
+div.column {
+	display: inline-block;
+  }
 </style>
