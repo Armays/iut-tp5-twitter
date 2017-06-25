@@ -2,10 +2,12 @@ package edu.lyon1.twitter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +37,19 @@ public class TweetController {
     }
 
     @RequestMapping("/tweet")
-    public void tweet(@RequestParam("auteur") Utilisateur auteur, @RequestParam("contenu") String contenu) {
-        tweetRepository.save(new Tweet(contenu, auteur));
+    public Tweet tweet(@RequestParam("auteur") Utilisateur auteur, @RequestParam("contenu") String contenu) {
+        Tweet response = new Tweet();
+        try {
+            response = tweetRepository.save(new Tweet(contenu, auteur));
+            response.setDate(new Timestamp(System.currentTimeMillis()));
+            // id = response.getId();
+
+        } catch (Exception e){
+            System.out.println(auteur);
+            System.out.println(e.getStackTrace());
+        }
+        return response;
+
     }
 
     @RequestMapping("/utilisateurs")

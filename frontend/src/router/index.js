@@ -16,11 +16,6 @@ export default new Router({
       path: '/timeline',
       name: 'timeline',
       component: Timeline
-    },
-    {
-      path: '/feed',
-      name: 'feed',
-      component: Feed
     }
   ]
 })

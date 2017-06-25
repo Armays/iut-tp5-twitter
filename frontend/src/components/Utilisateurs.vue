@@ -1,10 +1,11 @@
 <template>
   <div>
-    Utilisateur connecté :
+    Utilisateur connecté : {{this.handle}}
+    <br>
     <select @change="onChange($event.target.value)">
-     <option disabled value="">Choisissez un utilisateur ...</option>
+     <option>Choisissez un utilisateur ...</option>
      <option v-for="utilisateur in utilisateurs" :value="utilisateur.handle">
-       {{ utilisateur.prenom }} {{ utilisateur.nom }}
+       {{ utilisateur.prenom }} {{ utilisateur.nom }} - {{utilisateur.handle}} - {{momentf(utilisateur.inscription).format('DD-MM-YYYY')}}
      </option>
     </select>
   </div>
@@ -13,6 +14,7 @@
 <script>
 import Vue from 'vue'
 import Resource from 'vue-resource'
+import moment from 'moment'
 
 Vue.use(Resource)
 
@@ -20,23 +22,27 @@ export default {
   name: 'timeline',
   data () {
     return {
-      utilisateurs: ['']
+      utilisateurs: [''],
+      handle: undefined
     }
   },
   created () {
     this.getUtilisateurs()
   },
   methods: {
+    momentf: function (date) {
+      return moment(date)
+    },
     getUtilisateurs: function () {
-      // GET /someUrl
-        this.$http.get('http://localhost:8080/utilisateurs').then(response => {
-          this.utilisateurs = response.body;
-        }, response => {
-          // error callback
-        });
+      this.$http.get('http://localhost:8080/utilisateurs').then(response => {
+        this.utilisateurs = response.body;
+      }, response => {
+        // error callback
+      });
     },
     onChange: function(handle) {
-      this.$emit('changed', handle)
+      this.handle = handle;
+      this.$emit('changed', handle);
     }
   }
 }

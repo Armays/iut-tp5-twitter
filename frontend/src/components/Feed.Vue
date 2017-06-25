@@ -18,7 +18,7 @@ export default {
   props:['tweets', 'loading', 'connectedUser'],
   methods: {
      retweet: function (id) {
-        this.$emit('retweeted', id)
+       this.$emit('retweeted', id)
      }
   }
 }

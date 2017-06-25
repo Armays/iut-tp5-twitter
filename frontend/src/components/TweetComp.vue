@@ -47,23 +47,25 @@ export default {
         return moment(date)
       },
       retweet: function () {
-                this.$http.get('http://localhost:8080/retweet', {
-                  responseType: 'text',
-                  params:
-                    {utilisateur: this.connectedUser, tweet:this.tweetProp.id
-                    }
-                }).then(response => {
-                  this.$emit('retweeted', this.tweetProp.id)
-                }, response => {
-                  // error callback
-                });
+        this.$http.get('http://localhost:8080/retweet', {
+          responseType: 'text',
+          params:
+            {utilisateur: this.connectedUser.handle, tweet:this.tweetProp.id
+            }
+        }).then(response => {
+          this.$emit('retweeted', this.tweetProp.id)
+        }, response => {
+        });
       },
       canRetweet: function () {
-        console.log(this.tweetProp.retweeters, this.connectedUser);
-        var exist = this.tweetProp.retweeters.find(e => e.handle === this.connectedUser);
-        var auteur = this.tweetProp.auteur.handle === this.connectedUser;
-        if (exist || auteur) return false;
-        else return true;
+        if (this.connectedUser) {
+          var exist = this.tweetProp.retweeters.find(e => e.handle === this.connectedUser);
+          var auteur = this.tweetProp.auteur.handle === this.connectedUser.handle;
+          if (exist || auteur) return false;
+          else return true;
+        } else {
+          return false;
+        }
       }
     }
 }

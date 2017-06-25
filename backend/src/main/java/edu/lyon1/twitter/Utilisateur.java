@@ -1,5 +1,8 @@
 package edu.lyon1.twitter;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -53,5 +56,10 @@ public class Utilisateur implements Serializable {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    @Override
+    public String toString() {
+        return this.prenom + ' ' + this.nom + ' ' + this.inscription + ' ' + this.handle;
     }
 }
